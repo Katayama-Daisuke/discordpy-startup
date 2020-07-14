@@ -6,7 +6,6 @@ from datetime import datetime, timedelta
 bot = commands.Bot(command_prefix='/')
 token = os.environ['DISCORD_BOT_TOKEN']
 
-
 @bot.event
 async def on_voice_state_update(member, before, after): 
     if member.guild.id == 732216126976819252 and (before.channel != after.channel):
@@ -14,11 +13,12 @@ async def on_voice_state_update(member, before, after):
         alert_channel = client.get_channel(732216127450513430)
         if before.channel is None: 
             msg = f'{now:%m/%d-%H:%M} に {member.name} が {after.channel.name} に参加しました。'
-            await alert_channel.send(msg)
+            if after.channel.id == 732216127450513431:
+                await alert_channel.send(msg)
         elif after.channel is None: 
             msg = f'{now:%m/%d-%H:%M} に {member.name} が {before.channel.name} から退出しました。'
-            await alert_channel.send(msg)
-
+            if before.channel.id == 732216127450513431:
+                await alert_channel.send(msg)
 
 @bot.command()
 async def ping(ctx):
