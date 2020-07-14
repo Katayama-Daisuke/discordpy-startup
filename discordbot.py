@@ -10,7 +10,7 @@ token = os.environ['DISCORD_BOT_TOKEN']
 async def on_voice_state_update(member, before, after): 
     if member.guild.id == 732216126976819252 and (before.channel != after.channel):
         now = datetime.utcnow() + timedelta(hours=9)
-        alert_channel = client.get_channel(732216127450513430)
+        alert_channel = bot.get_channel(732216127450513430)
         if before.channel is None: 
             msg = f'{now:%m/%d-%H:%M} に {member.name} が {after.channel.name} に参加しました。'
             if after.channel.id == 732216127450513431:
